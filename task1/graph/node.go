@@ -1,16 +1,16 @@
 package graph
 
 type Node struct {
-	value      int
+	name       string
 	neighbours []*Node
 }
 
-func NewNode(value int) *Node {
-	return &Node{value: value}
+func NewNode(name string) *Node {
+	return &Node{name: name}
 }
 
-func (n *Node) Value() int {
-	return n.value
+func (n *Node) Value() string {
+	return n.name
 }
 
 func (n *Node) Neighbours() []*Node {

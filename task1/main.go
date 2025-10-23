@@ -3,6 +3,7 @@ package main
 import (
 	"ai-lesson/task1/graph"
 	"fmt"
+	"sort"
 )
 
 func contains(slice []*graph.Node, value *graph.Node) bool {
@@ -68,11 +69,11 @@ func DFS(n *graph.Node) {
 
 func checkBFS() {
 	fmt.Println("Метод пошуку в ширину (BFS):")
-	a := graph.NewNode(0)
-	b := graph.NewNode(1)
-	c := graph.NewNode(2)
-	d := graph.NewNode(3)
-	e := graph.NewNode(4)
+	a := graph.NewNode("0")
+	b := graph.NewNode("1")
+	c := graph.NewNode("2")
+	d := graph.NewNode("3")
+	e := graph.NewNode("4")
 
 	a.AddNeighbours(b, c)
 	b.AddNeighbours(a, c, d)
@@ -85,11 +86,11 @@ func checkBFS() {
 
 func checkDFS() {
 	fmt.Println("Метод пошуку в ширину (DFS):")
-	a := graph.NewNode(0)
-	b := graph.NewNode(1)
-	c := graph.NewNode(2)
-	d := graph.NewNode(3)
-	e := graph.NewNode(4)
+	a := graph.NewNode("0")
+	b := graph.NewNode("1")
+	c := graph.NewNode("2")
+	d := graph.NewNode("3")
+	e := graph.NewNode("4")
 
 	a.AddNeighbours(b, c, d)
 	b.AddNeighbours(a)
@@ -100,7 +101,57 @@ func checkDFS() {
 	DFS(a)
 }
 
+func Lar1() {
+	fmt.Println("Lабораторна робота - Хмельницький")
+	a1 := graph.NewNode("Хмельницький")
+	a2 := graph.NewNode("Старокоснятинів")
+	a3 := graph.NewNode("Голосків")
+	a4 := graph.NewNode("Меджибіж")
+	a5 := graph.NewNode("Летичів")
+	a6 := graph.NewNode("Стара Синява")
+	a7 := graph.NewNode("Адампіль")
+	a8 := graph.NewNode("Левківка")
+	a9 := graph.NewNode("Красилів")
+	a10 := graph.NewNode("Антоніни")
+	a11 := graph.NewNode("Теофіполь")
+	a12 := graph.NewNode("Війтівці")
+	a13 := graph.NewNode("Купіль")
+	a14 := graph.NewNode("Базалія")
+	a15 := graph.NewNode("Білогір'я")
+	a16 := graph.NewNode("Білогородка")
+	a17 := graph.NewNode("Чотирбоки")
+	a18 := graph.NewNode("Гринців")
+	a19 := graph.NewNode("Кустівці")
+	a20 := graph.NewNode("Любар")
+
+	_ = []*graph.Node{a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20}
+	edges := []*graph.Edge{
+		// якщо потрібно одразу ініціалізувати масив
+		graph.NewEdge(a1, a2, 1),
+		graph.NewEdge(a2, a3, 2),
+		graph.NewEdge(a3, a4, 3),
+		graph.NewEdge(a1, a4, 4),
+		graph.NewEdge(a2, a4, 5),
+	}
+
+	sort.Slice(edges, func(i, j int) bool {
+		// відсортувати за вагою ребра
+		return edges[i].GetWight() < edges[j].GetWight()
+	})
+
+	MST := make([]*graph.Edge, 0)
+	for _, edge := range edges {
+		if !graph.HasCycle(edge) {
+			MST = append(MST, edge)
+		}
+	}
+
+	fmt.Println("Edges:", edges)
+}
+
 func main() {
+	Lar1()
+
 	checkBFS()
 	checkDFS()
 
