@@ -81,3 +81,75 @@ func (g *Graph) GetMST() *Graph {
 	}
 	return MST
 }
+
+func (g *Graph) RunBFS(node *Node) {
+	fmt.Println("RUN BFS")
+
+	visited := make([]*Node, 0)
+	queue := make([]*Node, 0)
+
+	visited = append(visited, node)
+	queue = append(queue, node)
+
+	for len(queue) > 0 {
+		currentNode := queue[0]
+
+		fmt.Print("Поточний Node: ", currentNode.Value())
+		fmt.Print("\nПоточні відвідувані елементи: ")
+		for _, n := range visited {
+			fmt.Print(n.Value(), ", ")
+		}
+		fmt.Print("\nПоточна черга: ")
+		for _, n := range queue {
+			fmt.Print(n.Value(), ", ")
+		}
+		fmt.Println()
+		// Додати сусідів до черги
+		for _, neighbour := range g.GetNeighbours(currentNode) {
+			if !contains(visited, neighbour) {
+				queue = append(queue, neighbour)
+				visited = append(visited, neighbour)
+
+			}
+		}
+		queue = queue[1:] // Видалити перший елемент
+
+	}
+}
+
+func (g *Graph) RunDFS(node *Node) {
+	fmt.Println("RUN DFS")
+	visited := make([]*Node, 0)
+	stack := make([]*Node, 0)
+
+	currentNode := node
+
+	for {
+		visited = append(visited, currentNode)
+
+		// Додати сусідів до стеку
+		for _, neighbour := range g.GetNeighbours(currentNode) {
+			if !contains(visited, neighbour) {
+				stack = append(stack, neighbour)
+			}
+		}
+		fmt.Print("Поточний Node: ", currentNode.Value())
+		fmt.Print("\nПоточні відвідувані елементи: ")
+		for _, n := range visited {
+			fmt.Print(n.Value(), ", ")
+		}
+		fmt.Print("\nПоточний стек: ")
+		for _, n := range stack {
+			fmt.Print(n.Value(), ", ")
+		}
+		fmt.Println()
+
+		if len(stack) == 0 {
+			// вийти з програми, якщо стек порожній
+			break
+		}
+		currentNode = stack[0]
+		stack = stack[1:]
+
+	}
+}
