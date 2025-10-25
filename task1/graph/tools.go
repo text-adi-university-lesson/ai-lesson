@@ -2,8 +2,6 @@ package graph
 
 var components = make([][]*Node, 0)
 
-// [[],[]]
-
 func contains(slice []*Node, value *Node) bool {
 	for _, v := range slice {
 		if v == value {
