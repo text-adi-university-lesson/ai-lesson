@@ -83,7 +83,7 @@ func (g *Graph) GetMST() *Graph {
 }
 
 func (g *Graph) RunBFS(node *Node) {
-	fmt.Println("RUN BFS")
+	fmt.Println("-- RUN BFS")
 
 	visited := make([]*Node, 0)
 	queue := make([]*Node, 0)
@@ -118,7 +118,7 @@ func (g *Graph) RunBFS(node *Node) {
 }
 
 func (g *Graph) RunDFS(node *Node) {
-	fmt.Println("RUN DFS")
+	fmt.Println("-- RUN DFS")
 	visited := make([]*Node, 0)
 	stack := make([]*Node, 0)
 
