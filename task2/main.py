@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-
+global step
 
 # Розрахунок ентропії
 def entropy(data):
@@ -21,9 +21,15 @@ def information_gain(data, attribute):
     return total_entropy - subset_entropy
 
 
+
 # Вибір найкращого атрибута для розділення
 def best_attribute(data, attributes):
+    global step
     gains = [(attr, information_gain(data, attr)) for attr in attributes]
+    step += 1
+    print("Step:", step)
+    for attr in gains:
+        print(f"Attribute: {attr[0]}, Information Gain: {attr[1]:.4f}")
     return max(gains, key=lambda x: x[1])
 
 
@@ -57,6 +63,8 @@ def predict(tree, example):
 
 
 def main():
+    global step
+    step = 0
     data = pd.DataFrame(
         {'Price': ["Дешево", "Середньо", "Дешево", "Дорого", "Середньо", "Дешево", "Дорого", "Дешево",
                    "Дешево", "Середньо", "Середньо", "Дешево", "Дорого", "Середньо", "Дешево",
