@@ -1,0 +1,35 @@
+digraph {
+	Brand
+	Dell
+	Brand -> Dell
+	"Dell_Так" [label="Так" color=lightblue shape=box]
+	Dell -> "Dell_Так"
+	Apple
+	Brand -> Apple
+	"Apple_Так" [label="Так" color=lightblue shape=box]
+	Apple -> "Apple_Так"
+	Asus
+	Brand -> Asus
+	Price
+	Asus -> Price
+	"Дешево"
+	Price -> "Дешево"
+	"Дешево_Ні" [label="Ні" color=lightblue shape=box]
+	"Дешево" -> "Дешево_Ні"
+	"Середньо"
+	Price -> "Середньо"
+	"Середньо_Так" [label="Так" color=lightblue shape=box]
+	"Середньо" -> "Середньо_Так"
+	HP
+	Brand -> HP
+	Price
+	HP -> Price
+	"Дешево"
+	Price -> "Дешево"
+	"Дешево_Ні" [label="Ні" color=lightblue shape=box]
+	"Дешево" -> "Дешево_Ні"
+	"Середньо"
+	Price -> "Середньо"
+	"Середньо_Так" [label="Так" color=lightblue shape=box]
+	"Середньо" -> "Середньо_Так"
+}

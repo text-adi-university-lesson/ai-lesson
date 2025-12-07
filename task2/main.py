@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 global step
+from graphviz import Digraph
 
 # Розрахунок ентропії
 def entropy(data):
@@ -61,6 +62,16 @@ def predict(tree, example):
         return None
     return predict(subtree, example)
 
+def add_nodes(graph, parent, data):
+    if isinstance(data, dict):
+        for key, value in data.items():
+            graph.node(key)
+            graph.edge(parent, key)
+            add_nodes(graph, key, value)
+    else:
+        node_name = f"{parent}_{data}"
+        graph.node(node_name, label=data, shape="box", color="lightblue")
+        graph.edge(parent, node_name)
 
 def main():
     global step
@@ -80,6 +91,7 @@ def main():
                   'Професійне', 'Професійне', 'Ігри', 'Професійне', 'Офіс'],
          'Buy': ['Так', 'Так', 'Ні', 'Так', 'Так', 'Ні', 'Так', 'Ні', 'Так', 'Так', 'Так', 'Ні', 'Так',
                  'Так', 'Ні', 'Так', 'Так', 'Ні', 'Так', 'Так']})
+
     attributes = data.columns[:-1]
     target = 'Buy'
 
@@ -88,6 +100,11 @@ def main():
 
     tree = build_tree(train_data, attributes, target)
     print(tree)
+
+    dot = Digraph()
+    dot.node("Brand")
+    add_nodes(dot, "Brand", tree["Brand"])
+    dot.render("tree", format="png")
 
     predictions = []
     for i, row in test_data.iterrows():
